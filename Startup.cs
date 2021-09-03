@@ -1,4 +1,6 @@
+using AspNetCoreRESTv3.Common;
 using AspNetCoreRESTv3.Jwt;
+using AspNetCoreRESTv3.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -20,19 +22,15 @@ namespace AspNetCoreRESTv3
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup()
         {
-            Configuration = configuration;
         }
 
-        public IConfiguration Configuration { get; }
-
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
 
-            var key = Configuration["JWT:Key"];
+            var key = SettingsConfigHelper.AppSetting("JWT:Key");
             services.AddAuthentication(x =>
             {
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;

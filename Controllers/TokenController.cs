@@ -24,7 +24,7 @@ namespace AspNetCoreRESTv3.Controllers
         [HttpPost("token")]
         public IActionResult Authentication([FromBody] UserCredential userCredential)
         {
-            var token = jwtAuth.Authentication(userCredential.UserName, userCredential.Password);
+            var token = jwtAuth.Authentication(userCredential.Username, userCredential.Password);
             if (token == null)
                 return Unauthorized();
             return Ok(token);

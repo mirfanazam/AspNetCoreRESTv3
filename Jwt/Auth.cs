@@ -1,4 +1,6 @@
-﻿using Microsoft.IdentityModel.Tokens;
+﻿using AspNetCoreRESTv3.Common;
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
@@ -11,11 +13,12 @@ namespace AspNetCoreRESTv3.Jwt
 {
     public class Auth : IJwtAuth
     {
-        //Use complex user credentials
-        //Preferably use credentials from app settings or database
-        private readonly string username = "testuser";
-        private readonly string password = "pass@123";
+
+        private readonly string username = SettingsConfigHelper.AppSetting("JWT:Username");
+        private readonly string password = SettingsConfigHelper.AppSetting("JWT:Password");
         private readonly string key;
+        public IConfiguration Configuration { get; }
+
         public Auth(string key)
         {
             this.key = key;
